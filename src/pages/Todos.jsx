@@ -27,12 +27,13 @@ const Todos = () => {
     <div className="container">
       {loading && <h1>Loading...</h1>}
       {error && <h3>{error}</h3>}
+      <input type="text" />
       {todos.length > 0 && (
         <ol>
           {todos.map((todo) => (
             <li key={todo.id}>
-              
-              <h3>{todo.title}</h3>
+
+              <h6>{todo.title}</h6>
             </li>
           ))}
         </ol>
