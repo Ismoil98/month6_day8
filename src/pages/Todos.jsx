@@ -23,13 +23,26 @@ const Todos = () => {
     fetchTodos();
   }, []);
 
+  const getFilteredTodos = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get("http://localhost:3000/todos");
+      const data = await res.data;
+      setTodos(data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="container mt-5 ms-5">
       {loading && <h1>Loading...</h1>}
       {error && <h3>{error}</h3>}
-      <div className="d-flex justify-content-between w-50">
-        <label for='search' htmlFor="">Search:</label>
-        <input id='search' type="text" />
+      <div className="ms-3 pe-4 d-flex justify-content-between w-100">
+        <label className="" htmlFor='search'>Search:</label>
+        <input onSubmit={getFilteredTodos} className="w-75" id='search' type="text" />
       </div>
       {todos.length > 0 && (
         <ul className="list-unstyled mt-5">
@@ -38,7 +51,7 @@ const Todos = () => {
               
               <h6 className="m-0">{todo.title}</h6>
               <div className="d-flex w-25 align-items-center justify-content-between"> 
-                <input type="checkbox" name="" id=""  />
+                <input type="checkbox" checked={todo.completed} />
                 <button className="btn btn-info text-white">Change</button>
                 <button className="btn btn-danger">Delete</button>
               </div>
