@@ -24,19 +24,27 @@ const Todos = () => {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container mt-5 ms-5">
       {loading && <h1>Loading...</h1>}
       {error && <h3>{error}</h3>}
-      <input type="text" />
+      <div className="d-flex justify-content-between w-50">
+        <label for='search' htmlFor="">Search:</label>
+        <input id='search' type="text" />
+      </div>
       {todos.length > 0 && (
-        <ol>
+        <ul className="list-unstyled mt-5">
           {todos.map((todo) => (
-            <li key={todo.id}>
-
-              <h6>{todo.title}</h6>
+            <li className="d-flex align-items-center justify-content-between border-black bg-dark-subtle p-3 m-3 border-1 rounded" key={todo.id}>
+              
+              <h6 className="m-0">{todo.title}</h6>
+              <div className="d-flex w-25 align-items-center justify-content-between"> 
+                <input type="checkbox" name="" id=""  />
+                <button className="btn btn-info text-white">Change</button>
+                <button className="btn btn-danger">Delete</button>
+              </div>
             </li>
           ))}
-        </ol>
+        </ul>
       )}
     </div>
   );
